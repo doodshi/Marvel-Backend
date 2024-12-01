@@ -1,20 +1,18 @@
 require("dotenv").config();
-
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
 const app = express();
 app.use(express.json());
-
 app.use(cors());
 
-mongoose.connect(process.env.MONGO_URI);
+mongoose.connect(process.env.MONGODB_URI);
 // mongoose.connect("mongodb://localhost:27017/backend-marvel")
 
 //Mes router / routes
 const userRouter = require("./routes/user");
-app.use(userRouter)
+app.use(userRouter);
 
 const charactersRouter = require("./routes/characters");
 app.use(charactersRouter);
@@ -37,7 +35,6 @@ app.all("*", (req, res) => {
   res.status(404).json({ message: "page not found" });
 });
 
-
-app.listen(process.env.PORT , () => {
+app.listen(process.env.PORT, () => {
   console.log(`server started on PORT:${process.env.PORT}`);
 });
